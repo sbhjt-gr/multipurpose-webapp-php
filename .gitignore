@@ -1,0 +1,16 @@
+# Ignore sensitive information
+.env
+config.php
+
+# Ignore cache and temporary files
+cache/
+tmp/
+logs/
+
+# Ignore vendor directory (if using Composer)
+vendor/
+
+# Ignore IDE and system-specific files
+.idea/
+.vscode/
+.DS_Store

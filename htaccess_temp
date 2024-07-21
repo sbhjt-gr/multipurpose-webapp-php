@@ -1,0 +1,13 @@
+ErrorDocument 400 https://cloudysilver.ml/error/400.php
+ErrorDocument 401 https://cloudysilver.ml/error/401.php
+ErrorDocument 403 https://cloudysilver.ml/error/403.php
+ErrorDocument 404 https://cloudysilver.ml/error/404.php
+ErrorDocument 503 https://cloudysilver.ml/error/503.php
+php_value display_errors On
+php_flag magic_quotes 1
+php_flag magic_quotes_gpc 1
+php_value mbstring.http_input auto
+php_value date.timezone America/New_York
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^www\.cloudysilver\.ml [NC]
+RewriteRule ^(.*)$ https://cloudysilver.ml/$1 [L,R=301]
