@@ -17,6 +17,13 @@ class User{
             }
         }
     }
+    
+    public function __destruct(){
+        if(isset($this->db)){
+            $this->db->close();
+        }
+    }
+    
     public function getRows($conditions = array()){
         $sql = 'SELECT ';
         $sql .= array_key_exists("select",$conditions)?$conditions['select']:'*';
@@ -34,16 +41,28 @@ class User{
         }
         
         if(array_key_exists("order_by",$conditions)){
-            $sql .= ' ORDER BY '.$conditions['order_by']; 
+            $allowed_columns = ['id', 'username', 'email', 'created', 'modified'];
+            $order_column = $conditions['order_by'];
+            if(in_array($order_column, $allowed_columns)){
+                $sql .= ' ORDER BY '.$order_column;
+            }
         }
         
         if(array_key_exists("start",$conditions) && array_key_exists("limit",$conditions)){
-            $sql .= ' LIMIT '.$conditions['start'].','.$conditions['limit']; 
+            $start = intval($conditions['start']);
+            $limit = intval($conditions['limit']);
+            $sql .= ' LIMIT '.$start.','.$limit;
         }elseif(!array_key_exists("start",$conditions) && array_key_exists("limit",$conditions)){
-            $sql .= ' LIMIT '.$conditions['limit']; 
+            $limit = intval($conditions['limit']);
+            $sql .= ' LIMIT '.$limit;
         }
         
         $result = $this->db->query($sql);
+        
+        if($result === false){
+            error_log("Database query failed: " . $this->db->error);
+            return false;
+        }
         
         if(array_key_exists("return_type",$conditions) && $conditions['return_type'] != 'all'){
             switch($conditions['return_type']){
@@ -86,6 +105,10 @@ class User{
             }
             $query = "INSERT INTO ".$this->userTbl." (".$columns.") VALUES (".$values.")";
             $insert = $this->db->query($query);
+            if($insert === false){
+                error_log("Database insert failed: " . $this->db->error);
+                return false;
+            }
             return $insert?$this->db->insert_id:false;
         }else{
             return false;

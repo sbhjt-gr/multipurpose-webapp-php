@@ -47,6 +47,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["id"] = $id;
                             $_SESSION["username"] = $username;
                             header("location: /index.php");
+                            exit();
                         } else{
 
                             $password_err = "The password you entered is not valid";
@@ -54,10 +55,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     }
                 } else{
 
-                    $username_err = "No account found with" . $username;
+                    $username_err = "No account found with that username";
                 }
             } else{
-                header("location: /s/contact.php?type=errorlogin");
+                echo "Database error occurred. Please try again later.";
+                exit();
             }
         }
 

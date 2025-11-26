@@ -46,9 +46,9 @@ include '../header-564qs59743.php';
       <input type="file" id="userFile" class="emptyu" name="file" placeholder="Drop Your File Here.." required />
 <br />
   <input type="text" class="form-control emptyu" name="filetitle" placeholder="File Title" maxlength="45" required />
- <textarea class="form-control" placeholder="Description" name="description" rows="5" maxlength="1600"></textarea>
+  <textarea class="form-control" placeholder="Description" name="description" rows="5" maxlength="1600"></textarea>
 <br />
-      <input name="submit" class="btn btn-lg btn-primary btn-block btniframe" type="submit" onclick="iframeshow()" id="subup" value="Upload File" disabled="disabled" />   
+      <input name="submit" class="btn btn-lg btn-primary btn-block btniframe" type="submit" onclick="iframeshow()" id="subup" value="Upload File" />   
 <br /><div align="center">You agree to our <a href="/service/terms.php"><b>Terms of Service</b></a></div>
     </form>
   </div>

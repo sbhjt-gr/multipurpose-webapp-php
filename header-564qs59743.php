@@ -83,9 +83,8 @@ function scrollFunction() {
 <div id="top-items">
 <?php
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-echo '<a href=""><span class="top-item"><i class="fa fa-user"></i> ' . htmlspecialchars($_SESSION["username"]) . '</span></a>
-<a href=""><span class="top-item"><i class="fa fa-users"></i> Num2</span></a>
-<a href=""><span class="top-item"><i class="fa fa-envelope"></i> Num3</span></a>
+echo '<a href="/account/myprofile.php"><span class="top-item"><i class="fa fa-user"></i> ' . htmlspecialchars($_SESSION["username"]) . '</span></a>
+<a href="/account/messages.php"><span class="top-item"><i class="fa fa-envelope"></i> Messages</span></a>
 <a href="/account/logout.php"><span class="top-item"><i class="glyphicon glyphicon-log-out"></i> Logout</span></a>';
 } else {
 	echo '<a href="/account/login.php"><span class="top-item"><i class="glyphicon glyphicon-log-in"></i> Login</span></a>

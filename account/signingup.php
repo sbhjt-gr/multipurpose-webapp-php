@@ -4,7 +4,13 @@ include 'user.php';
 $user = new User();
 if(isset($_POST['su_submit'])){
     if(!empty($_POST['full_name']) && !empty($_POST['gender']) && !empty($_POST['email']) && !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['confirm_password'])){
-        if($_POST['password'] !== $_POST['confirm_password']){
+        if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+            $sessData['status']['type'] = 'error';
+            $sessData['status']['msg'] = 'Invalid email format';
+        }elseif(strlen($_POST['password']) < 6){
+            $sessData['status']['type'] = 'error';
+            $sessData['status']['msg'] = 'Password must be at least 6 characters long';
+        }elseif($_POST['password'] !== $_POST['confirm_password']){
             $sessData['status']['type'] = 'error';
             $sessData['status']['msg'] = 'The passwords you typed in did not match to each other'; 
         }else{
@@ -15,6 +21,13 @@ if(isset($_POST['su_submit'])){
                 $sessData['status']['type'] = 'error';
                 $sessData['status']['msg'] = 'Email already exists, please use another email.';
             }else{
+                $usernameCon['where'] = array('username'=>$_POST['username']);
+                $usernameCon['return_type'] = 'count';
+                $usernameExists = $user->getRows($usernameCon);
+                if($usernameExists > 0){
+                    $sessData['status']['type'] = 'error';
+                    $sessData['status']['msg'] = 'Username already exists, please choose another.';
+                }else{
                 $userData = array(
                     'first_name' => $_POST['first_name'],
                     'username' => $_POST['username'],
@@ -32,6 +45,7 @@ if(isset($_POST['su_submit'])){
                     $sessData['status']['type'] = 'error';
                     $sessData['status']['msg'] = 'Oops! Something went wrong!';
                 }
+                }
             }
         }
     }else{
@@ -41,6 +55,7 @@ if(isset($_POST['su_submit'])){
     $_SESSION['sessData'] = $sessData;
     $redirectURL = ($sessData['status']['type'] == 'success')?'index.php':'registration.php';
     header("Location:".$redirectURL);
+    exit();
 }elseif(isset($_POST['loginSubmit'])){
     if(!empty($_POST['email']) && !empty($_POST['password'])){
         $conditions['where'] = array(
@@ -64,13 +79,17 @@ if(isset($_POST['su_submit'])){
     }
     $_SESSION['sessData'] = $sessData;
     header("Location:index.php");
+    exit();
 }elseif(!empty($_REQUEST['logoutSubmit'])){
     unset($_SESSION['sessData']);
     session_destroy();
+    session_start();
     $sessData['status']['type'] = 'success';
     $sessData['status']['msg'] = 'You have logout successfully from your account.';
     $_SESSION['sessData'] = $sessData;
     header("Location:index.php");
+    exit();
 }else{
     header("Location:index.php");
+    exit();
 }

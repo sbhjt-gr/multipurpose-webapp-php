@@ -24,15 +24,15 @@
                     </div>
                 </div>
                 <div class="form-group">
-                <label for="firstName" class="col-sm-3 control-label">Choose Username</label>
+                <label for="username" class="col-sm-3 control-label">Choose Username</label>
                     <div class="col-sm-9">
-                        <input type="text" id="firstName" placeholder="Choose Username" class="form-control tooltipped" data-toggle="tooltip" title="This name will be displayed as your account name and will help you to get identified by anyone." name="username" required />
+                        <input type="text" id="username" placeholder="Choose Username" class="form-control tooltipped" data-toggle="tooltip" title="This name will be displayed as your account name and will help you to get identified by anyone." name="username" required />
                     </div>
                 </div>
                 <div class="form-group">
-                <label for="firstName" class="col-sm-3 control-label">Full Name</label>
+                <label for="fullName" class="col-sm-3 control-label">Full Name</label>
                     <div class="col-sm-9">
-                        <input type="text" id="firstName" placeholder="Full Name" class="form-control tooltipped" data-toggle="tooltip" title="Enter your first and last name here. This name will be shown in your account." name="full_name" />     
+                        <input type="text" id="fullName" placeholder="Full Name" class="form-control tooltipped" data-toggle="tooltip" title="Enter your first and last name here. This name will be shown in your account." name="full_name" />     
                     </div>
                 </div>
                 <div class="form-group">
@@ -42,9 +42,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                <label for="password" class="col-sm-3 control-label">Confirm Password</label>
+                <label for="confirmPassword" class="col-sm-3 control-label">Confirm Password</label>
                     <div class="col-sm-9">
-                        <input type="password" id="password" name="confirm_password" placeholder="Confirm Password" class="form-control tooltipped" required />
+                        <input type="password" id="confirmPassword" name="confirm_password" placeholder="Confirm Password" class="form-control tooltipped" required />
                     </div>
                 </div>
                 <div class="form-group">

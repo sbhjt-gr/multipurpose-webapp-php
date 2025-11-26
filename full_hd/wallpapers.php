@@ -65,7 +65,7 @@ echo htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
       </div></div>';
 $directories = glob($dirList . "*");
 usort($directories, function ($a, $b) { return filemtime($b) - filemtime($a); });
-$dirtype = $_GET['type'];
+$dirtype = isset($_GET['type']) ? $_GET['type'] : '';
 if ($dirtype == 'dir') {} else {
 echo '<div class="list-group">';
 foreach($directories as $dir) {
@@ -88,6 +88,7 @@ $order = "New to Old";
 $order = in_array($ordero, ['A to Z', 'New to Old']) ? $ordero : 'New to Old';
 }
 if ($order == "A to Z") {
+    sort($fileinsid_);
 } else { usort($fileinsid_, function ($a, $b) { return filemtime($b) - filemtime($a); }); }
 $page_num = isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1;
 if ($page_num < 1) {
@@ -96,7 +97,7 @@ $page = 1;
 $page = $page_num;
 }
 $record_count = 18;
-$total_pages = ceil(count($filedir)/$record_count);
+$total_pages = ceil(count($fileinsid_)/$record_count);
 $offset = ($page-1)*$record_count;
 $fileinside = array_slice($fileinsid_, $offset,$record_count);
 echo '<br /><div class="order_body">
@@ -114,7 +115,14 @@ $file_full_name = basename($isfile);
 echo '<div class="col-md-4 team-grid">
 							<div class="ih-item circle effect1"><a href="'; echo "https://".$_SERVER['SERVER_NAME']; echo $_SERVER['REQUEST_URI']."#1"; echo '">
 								<div class="spinner"></div>
-								<div class="img"><img src="/downloads/thumbnails/tmb_'.$file_full_name.'" /></div>
+								<div class="img">';
+$thumbnail_path = "/downloads/thumbnails/tmb_".$file_full_name;
+if(file_exists("..".$thumbnail_path)){
+    echo '<img src="'.$thumbnail_path.'" />';
+}else{
+    echo '<img src="'.$isfile.'" style="max-width:100%;height:auto;" />';
+}
+echo '</div>
 								<div class="info">
 								  <div class="info-back">
 									<h4>';
@@ -129,18 +137,15 @@ echo '</span>
 							<p>Tap on image to get full details</p>
 							<center><a href=""><div class="axomf text-capitalize">'; echo htmlspecialchars($file_name, ENT_QUOTES, 'UTF-8'); echo '</div></div></a></center>		
 </div>';
-$detect = new Mobile_Detect();
-if ($detect->isMobile()) { echo '<pre style="background: none; border: none;">
-</pre>'; } else {}
 }
 }
-if (empty($isfile)) { echo '<center><p class="lead"><big>No more files are available in page number '.$page.'! <a href="javascript:history.back()">Back</a></big></p></center>'; } else {}
+if (count($fileinside) == 0) { echo '<center><p class="lead"><big>No files are available in this directory! <a href="javascript:history.back()">Back</a></big></p></center>'; } else {}
 echo '</div></div>
 <pre style="background: none; border: none;">
 </pre>
-<div class="pagina_marg">';
-echo '<a href="'; echo "full_hd/wallpapers.php?dir=".urlencode($safe_dir)."&type=".urlencode($_GET['type'])."&order=".urlencode($order)."&page=".intval($page-1).'"<span id="pagina_prev"><font color="#01770F">←</font> Prev</span></a>'; 
-echo '<a href="'; echo "full_hd/wallpapers.php?dir=".urlencode($safe_dir)."&type=".urlencode($_GET['type'])."&order=".urlencode($order)."&page=".intval($page+1).'"<span id="pagina_next">Next <font color="#01770F">→</font></span></a>';
+<div class="pagina_marg">'; 
+echo '<a href="'; echo "full_hd/wallpapers.php?dir=".urlencode($safe_dir)."&type=".urlencode($_GET['type'])."&order=".urlencode($order)."&page=".max(1, intval($page-1)).'"><span id="pagina_prev"><font color="#01770F">←</font> Prev</span></a>'; 
+echo '<a href="'; echo "full_hd/wallpapers.php?dir=".urlencode($safe_dir)."&type=".urlencode($_GET['type'])."&order=".urlencode($order)."&page=".intval($page+1).'"><span id="pagina_next">Next <font color="#01770F">→</font></span></a>';
 echo '</div>
 <pre style="background: none; border: none;">
 </pre>
