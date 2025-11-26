@@ -20,7 +20,7 @@ echo '</head>
 }
 ?>
 <?php
-$getdir = $_POST['dir'];
+$getdir = isset($_POST['dir']) ? basename($_POST['dir']) : '';
 if (isset($_POST['submit'])) {
 if (empty($getdir)) {
 echo '<!DOCTYPE html>
@@ -35,7 +35,8 @@ echo '</head>
 </html>';
 }
 else {
-$filedir = "../downloads/wallpapers".$_GET['dir']."/*";
+$safe_dir = basename($_POST['dir']);
+$filedir = "../downloads/wallpapers/".$safe_dir."/*";
 $fileinside = glob($filedir);
 echo '<!DOCTYPE html>
 <html>
@@ -61,7 +62,7 @@ $tn = imagecreatetruecolor($modwidth, $modheight);
 $image = imagecreatefromjpeg($isfile);
 imagecopyresampled($tn, $image, 0, 0, 0, 0, $modwidth, $modheight, $width, $height);
 imagejpeg($tn, $save, 100);
-echo '<img src="/downloads/thumbnails/tmb_'.$file_full_name.'" style="height: 75px; width: 75px;" />';
+echo '<img src="/downloads/thumbnails/tmb_'.htmlspecialchars($file_full_name, ENT_QUOTES, 'UTF-8').'" style="height: 75px; width: 75px;" />';
 }
 }
 echo '

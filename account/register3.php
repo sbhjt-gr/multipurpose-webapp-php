@@ -7,7 +7,7 @@
 </head>
 <body>
 <?php include '../header-564qs59743.php'; 
-include 'config.php'; 
+include 'config_62882qyul.php'; 
 ?>
 <form method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">    <div class="container">
             <div class="form-horizontal" role="form">
@@ -276,17 +276,17 @@ include 'config.php';
                         <div class="row">
                             <div class="col-sm-4">
                                 <label class="radio-inline">
-                                    <input type="radio" id="femaleRadio" name="female" value="Female" checked />Female
+                                    <input type="radio" id="femaleRadio" name="gender" value="Female" checked />Female
                                 </label>
                             </div>
                             <div class="col-sm-4">
                                 <label class="radio-inline">
-                                    <input type="radio" id="maleRadio" name="male" value="Male" />Male
+                                    <input type="radio" id="maleRadio" name="gender" value="Male" />Male
                                 </label>
                             </div>
                             <div class="col-sm-4">
                                 <label class="radio-inline">
-                                    <input type="radio" id="uncknownRadio" name="secret" value="Secret" />Unknown
+                                    <input type="radio" id="unknownRadio" name="gender" value="Unknown" />Unknown
                                 </label>
                             </div>
                         </div>

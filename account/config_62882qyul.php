@@ -26,6 +26,8 @@ class User{
             $i = 0;
             foreach($conditions['where'] as $key => $value){
                 $pre = ($i > 0)?' AND ':'';
+                $key = $this->db->real_escape_string($key);
+                $value = $this->db->real_escape_string($value);
                 $sql .= $pre.$key." = '".$value."'";
                 $i++;
             }
@@ -76,6 +78,8 @@ class User{
             }
             foreach($data as $key=>$val){
                 $pre = ($i > 0)?', ':'';
+                $key = $this->db->real_escape_string($key);
+                $val = $this->db->real_escape_string($val);
                 $columns .= $pre.$key;
                 $values  .= $pre."'".$val."'";
                 $i++;

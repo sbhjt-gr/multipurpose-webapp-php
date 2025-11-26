@@ -11,8 +11,8 @@ include '../header-564qs59743.php';
 ?>
 <?php
 if (isset($_POST['submit'])) {
-$pin = $_REQUEST['pin'];
-if ($pin == 1296) {
+$pin = isset($_POST['pin']) ? intval($_POST['pin']) : 0;
+if ($pin === 1296) {
 
 } else {
 echo "<br /><center>PIN ERROR!</center><br />";

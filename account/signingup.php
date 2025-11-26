@@ -2,7 +2,7 @@
 session_start();
 include 'user.php';
 $user = new User();
-if(isset($_POST['su_ubmit'])){
+if(isset($_POST['su_submit'])){
     if(!empty($_POST['full_name']) && !empty($_POST['gender']) && !empty($_POST['email']) && !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['confirm_password'])){
         if($_POST['password'] !== $_POST['confirm_password']){
             $sessData['status']['type'] = 'error';
@@ -19,7 +19,7 @@ if(isset($_POST['su_ubmit'])){
                     'first_name' => $_POST['first_name'],
                     'username' => $_POST['username'],
                     'email' => $_POST['email'],
-                    'password' => md5($_POST['password']),
+                    'password' => password_hash($_POST['password'], PASSWORD_DEFAULT),
                     'gender' => $_POST['gender'],
                     'country' => $_POST['country'],
                     'city' => $_POST['city'],
@@ -45,12 +45,11 @@ if(isset($_POST['su_ubmit'])){
     if(!empty($_POST['email']) && !empty($_POST['password'])){
         $conditions['where'] = array(
             'email' => $_POST['email'],
-            'password' => md5($_POST['password']),
             'status' => '1'
         );
         $conditions['return_type'] = 'single';
         $userData = $user->getRows($conditions);
-        if($userData){
+        if($userData && password_verify($_POST['password'], $userData['password'])){
             $sessData['userLoggedIn'] = TRUE;
             $sessData['userID'] = $userData['id'];
             $sessData['status']['type'] = 'success';

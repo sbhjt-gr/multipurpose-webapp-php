@@ -13,16 +13,16 @@ echo '<br /><h2>Contact Us</h2>
             <div class="container">
                 <div class="col-sm-8 contact-middle">
                     <h4>Contact to us</h4>
-                    <form action="'; echo $_SERVER['REQUEST_URI']; echo'" method="post">
-                        <input type="text" value="'.$_POST['name'].'" placeholder="YOUR NAME" name="name" required="" />
-                        <input type="text" value="'.$_POST['email'].'" name="email" class="c-email" placeholder="YOUR EMAIL" required="" />
+                    <form action="'; echo htmlspecialchars($_SERVER['REQUEST_URI'], ENT_QUOTES, 'UTF-8'); echo'" method="post">
+                        <input type="text" value="'.htmlspecialchars($_POST['name'] ?? '', ENT_QUOTES, 'UTF-8').'" placeholder="YOUR NAME" name="name" required="" />
+                        <input type="text" value="'.htmlspecialchars($_POST['email'] ?? '', ENT_QUOTES, 'UTF-8').'" name="email" class="c-email" placeholder="YOUR EMAIL" required="" />
 
 <input type="text" value="" name="subject" class="c-email" placeholder="SUBJECT" required />
                         <textarea name="text" placeholder="YOUR MESSAGE" required></textarea>
 <input type="hidden" name="action" value="send_message"  />
 <br />
                         <div class="submit">
-                            <input type="submit" value="SEND MESSAGE" disabled />
+                            <input type="submit" value="SEND MESSAGE" />
                         </div>
                     <div class="clearfix"></div>
                     </form>

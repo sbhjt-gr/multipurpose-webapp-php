@@ -10,7 +10,7 @@
 <?php include '../header-564qs59743.php'; 
 ?>
 <br />
-<form method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" class="form-signup">
+<form method="post" action="<?php echo htmlspecialchars($_SERVER['SCRIPT_NAME'], ENT_QUOTES, 'UTF-8'); ?>" class="form-signup">
     <div class="container">
 <br />
             <div class="form-horizontal" role="form">

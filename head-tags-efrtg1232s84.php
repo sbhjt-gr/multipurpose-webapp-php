@@ -3,8 +3,7 @@ session_start();
 ?>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 <meta name="theme-color" content="#121212" />
-<!--<base href="<?php echo "https://".$_SERVER['SERVER_NAME']; ?>" />-->
-<base href="<?php echo $_SERVER['SERVER_NAME']; ?>" />
+<base href="<?php echo "https://".$_SERVER['SERVER_NAME']; ?>" />
 <meta http-equiv="Content-Security-Policy" content="block-all-mixed-content" />
 <meta name="author" content="Cloudy Silver" />
 <meta property="og:image" content="#" />

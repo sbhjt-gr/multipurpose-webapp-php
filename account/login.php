@@ -42,6 +42,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     if(mysqli_stmt_fetch($stmt)){
                         if(password_verify($password, $hashed_password)){
                             session_start();
+                            session_regenerate_id(true);
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
                             $_SESSION["username"] = $username;
@@ -89,7 +90,7 @@ echo '<center><div class="alert alert-info fade in bs-example">
 '</div></center>'; }
 ?>
 <br />
-      <input type="text" class="form-control login-box has-error" name="e-mail" placeholder="Email" />
+      <input type="text" class="form-control login-box has-error" name="username" placeholder="Username" />
 <br />
       <input type="password" class="form-control login-box" name="password" placeholder="Password" />
 <br />
